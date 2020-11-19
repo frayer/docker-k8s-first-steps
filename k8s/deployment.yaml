@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: python-flask-demo
+  name: python-flask-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: python-flask-demo
+  template:
+    metadata:
+      labels:
+        run: python-flask-demo
+    spec:
+      containers:
+      - image: python-flask-demo:latest
+        imagePullPolicy: IfNotPresent
+        name: cloud-native-demo
+        env:
+        - name: USER_DEFINED_1
+          value: bar
+        - name: USER_DEFINED_2
+          value: foo
+        resources:
+          limits:
+            cpu: 1
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
